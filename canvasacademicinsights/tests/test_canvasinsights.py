@@ -43,7 +43,6 @@ class TestMain(unittest.TestCase):
         self.assertEqual(self.courses[2], 'coursename')
         self.assertEqual(self.courses[3], 'coursename')
         self.assertEqual(self.courses[4], 'coursename')
-        print(self.courses)
         
     def tearDown(self):
         self.testData = None
