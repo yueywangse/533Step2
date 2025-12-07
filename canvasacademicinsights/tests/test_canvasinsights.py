@@ -2,7 +2,6 @@ import unittest
 from datetime import datetime
 from canvasacademicinsights.canvasmain import canvasinsights as ci
 from canvasacademicinsights.canvasmain import canvasdataretriever as cr
-from canvasacademicinsights.canvasmain.canvasdataretriever import AssignmentGrade
 
 class TestMain(unittest.TestCase):
     @classmethod
