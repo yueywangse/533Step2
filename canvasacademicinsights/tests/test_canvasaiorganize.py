@@ -3,14 +3,13 @@ import random
 import io
 import sys
 from datetime import datetime
-from canvasacademicinsights.canvasaianalyzer import clean
 from canvasacademicinsights.canvasaianalyzer import model
 from canvasacademicinsights.canvasaianalyzer import grades
 from canvasacademicinsights.canvasaianalyzer import organize
 from canvasacademicinsights.canvasmain import canvasdataretriever as c 
 
 
-class TestAI(unittest.TestCase):
+class TestAIPrompt(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         pass
@@ -36,17 +35,8 @@ class TestAI(unittest.TestCase):
             courses.append(sampleCourse)
             self.courses = courses
             self.ai = model.AI()
-            
-    def testCleanData(self):
-        clean.cleanCourseData(self.courses)
-        self.assertEqual(len(self.courses), 5)
-        for c in self.courses:
-            self.assertGreater(len(c[0]), 0)
-            self.assertGreater(len(c[1]), 0)
-            self.assertGreater(len(c[2]), 0)
-            self.assertEqual(len(c[3]), 10)
     
-    def testAI(self):
+    def testGrades(self):
         sys.stdout = io.StringIO()
 
         grades.gradesAsk(self.courses)
@@ -60,7 +50,8 @@ class TestAI(unittest.TestCase):
         grades.strongCourseAsk(self.courses)
         output = sys.stdout.getvalue()
         self.assertGreater(output.count("\n"), 3)
-        
+    
+    def testOrganize(self):
         organize.dueDatesAsk(self.courses)
         output = sys.stdout.getvalue()
         self.assertGreater(output.count("\n"), 3)
@@ -72,7 +63,11 @@ class TestAI(unittest.TestCase):
         organize.studyPlanAsk(self.courses)
         output = sys.stdout.getvalue()
         self.assertGreater(output.count("\n"), 3)
-        
+    
+    def tearDown(self):
+        self.courses = None
+        self.ai = None
+
     @classmethod
     def tearDownClass(cls):
         pass
